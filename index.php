@@ -41,9 +41,22 @@ $statement = $dbh->prepare($sql);
 //$statement->execute();
 
 //bind the parameters
-$type = 'snake';
-$name = 'Slitherin';
-$color = 'green';
+//$type = 'snake';
+//$name = 'Slitherin';
+//$color = 'green';
+//$statement->bindParam(':type', $type, PDO::PARAM_STR);
+//$statement->bindParam(':name', $name, PDO::PARAM_STR);
+//$statement->bindParam(':color', $color, PDO::PARAM_STR);
+//
+////Execute
+//$statement->execute();
+//
+//$id = $dbh->lastInsertId();
+//echo"<p>Pet $id inserted successfully</p>";
+
+$type = 'cat';
+$name = 'Mittens';
+$color = 'black';
 $statement->bindParam(':type', $type, PDO::PARAM_STR);
 $statement->bindParam(':name', $name, PDO::PARAM_STR);
 $statement->bindParam(':color', $color, PDO::PARAM_STR);
