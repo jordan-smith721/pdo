@@ -92,3 +92,14 @@ $statement->bindParam(':old', $old, PDO::PARAM_STR);
 $statement->bindParam(':new', $new, PDO::PARAM_STR);
 
 $statement->execute();
+
+//delete
+//define a query
+$sql = "DELETE FROM pets WHERE id=:id";
+
+$statement = $dbh->prepare($sql);
+
+$id = 1;
+$statement->bindParam(':id', $id, PDO::PARAM_INT);
+
+$statement->execute();
