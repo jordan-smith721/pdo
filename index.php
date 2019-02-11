@@ -104,14 +104,13 @@ $statement = $dbh->prepare($sql);
 //
 //$statement->execute();
 
-$sql = "SELECT * FROM pets WHERE id = :id";
+$sql = "SELECT * FROM pets";
 
 $statement = $dbh->prepare($sql);
 
-$id = 3;
-$statement->bindParam(':id', $id, PDO::PARAM_INT);
-
 $statement->execute();
 
-$row = $statement->fetch(PDO::FETCH_ASSOC);
-echo $row['name'] . ", " .$row['type'].", ".$row['color'];
+$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+foreach ($result as $row){
+    echo $row['name'].", ".$row['type'].", ".$row['color'];
+}
