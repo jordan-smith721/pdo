@@ -67,39 +67,51 @@ $statement = $dbh->prepare($sql);
 //$id = $dbh->lastInsertId();
 //echo"<p>Pet $id inserted successfully</p>";
 
-$sql = "UPDATE pets SET name = :new WHERE name = :old";
+//$sql = "UPDATE pets SET name = :new WHERE name = :old";
+//
+////prepare the statement
+//$statement = $dbh->prepare($sql);
+//
+////bind
+//$old = 'Joey';
+//$new = 'Troy';
+//$statement->bindParam(':old', $old, PDO::PARAM_STR);
+//$statement->bindParam(':new', $new, PDO::PARAM_STR);
+//
+//$statement->execute();
+//
+//$sql = "UPDATE pets SET color = :new WHERE color = :old";
+//
+////prepare the statement
+//$statement = $dbh->prepare($sql);
+//
+////bind
+//$old = 'pink';
+//$new = 'brown';
+//$statement->bindParam(':old', $old, PDO::PARAM_STR);
+//$statement->bindParam(':new', $new, PDO::PARAM_STR);
+//
+//$statement->execute();
+//
+////delete
+////define a query
+//$sql = "DELETE FROM pets WHERE id=:id";
+//
+//$statement = $dbh->prepare($sql);
+//
+//$id = 1;
+//$statement->bindParam(':id', $id, PDO::PARAM_INT);
+//
+//$statement->execute();
 
-//prepare the statement
+$sql = "SELECT * FROM pets WHERE id = :id";
+
 $statement = $dbh->prepare($sql);
 
-//bind
-$old = 'Joey';
-$new = 'Troy';
-$statement->bindParam(':old', $old, PDO::PARAM_STR);
-$statement->bindParam(':new', $new, PDO::PARAM_STR);
-
-$statement->execute();
-
-$sql = "UPDATE pets SET color = :new WHERE color = :old";
-
-//prepare the statement
-$statement = $dbh->prepare($sql);
-
-//bind
-$old = 'pink';
-$new = 'brown';
-$statement->bindParam(':old', $old, PDO::PARAM_STR);
-$statement->bindParam(':new', $new, PDO::PARAM_STR);
-
-$statement->execute();
-
-//delete
-//define a query
-$sql = "DELETE FROM pets WHERE id=:id";
-
-$statement = $dbh->prepare($sql);
-
-$id = 1;
+$id = 3;
 $statement->bindParam(':id', $id, PDO::PARAM_INT);
 
 $statement->execute();
+
+$row = $statement->fetch(PDO::FETCH_ASSOC);
+echo $row['name'] . ", " .$row['type'].", ".$row['color'];
