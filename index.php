@@ -15,19 +15,18 @@ require '/home/jsmithgr/config.php';
 try {
     //Instantiate a db object
     $dbh = new PDO( DB_DSN, DB_USERNAME, DB_PASSWORD );
-    echo "Connected to DB!";
 }
 catch(Exception $ex)
 {
     echo $ex->getMessage();
 }
 
-//define the query
-$sql = "INSERT INTO pets(type, name, color)
-          VALUES (:type, :name, :color)";
-
-//prepare the statement
-$statement = $dbh->prepare($sql);
+////define the query
+//$sql = "INSERT INTO pets(type, name, color)
+//          VALUES (:type, :name, :color)";
+//
+////prepare the statement
+//$statement = $dbh->prepare($sql);
 
 //bind the parameters
 //$type = 'kangaroo';
@@ -103,14 +102,56 @@ $statement = $dbh->prepare($sql);
 //$statement->bindParam(':id', $id, PDO::PARAM_INT);
 //
 //$statement->execute();
+//
+//$sql = "SELECT * FROM pets";
+//
+//$statement = $dbh->prepare($sql);
+//
+//$statement->execute();
+//
+//$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+//foreach ($result as $row){
+//    echo $row['name'].", ".$row['type'].", ".$row['color'];
+//}
 
-$sql = "SELECT * FROM pets";
+?>
 
-$statement = $dbh->prepare($sql);
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pets Table</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Owner</th>
+        <th>Pet</th>
+    </tr>
 
-$statement->execute();
+    <?php
+    //define sql statement
+    $sql = "SELECT po.first, po.last, p.name, p.type FROM pets p 
+            INNER JOIN petOwners po WHERE po.petId = p.id";
 
-$result = $statement->fetchAll(PDO::FETCH_ASSOC);
-foreach ($result as $row){
-    echo $row['name'].", ".$row['type'].", ".$row['color'];
-}
+    //prepare the statement
+    $statement = $dbh->prepare($sql);
+
+    //execute the query
+    $statement->execute();
+
+    //save the results
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($result as $row){
+        echo "<tr><td>" . $row['first'] ." ". $row['last']."</td>
+                <td>" . $row['name'] . " the " . $row['type'] . "</td></tr>";
+    }
+    ?>
+
+</table>
+</body>
+</html>
